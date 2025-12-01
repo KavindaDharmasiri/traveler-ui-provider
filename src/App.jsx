@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { handleAuthFromURL, checkAuth, startAuthMonitor } from '../services/authHandler';
+import { handleAuthFromURL, checkAuth, startAuthMonitor } from './utils/authHandler';
 
 // Import Layout Components - Added .jsx extension for explicit resolution
 import Sidebar from './components/Layout/Sidebar.jsx';
