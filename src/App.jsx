@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { handleAuthFromURL, checkAuth, startAuthMonitor } from '../services/authHandler';
 
 // Import Layout Components - Added .jsx extension for explicit resolution
 import Sidebar from './components/Layout/Sidebar.jsx';
@@ -32,8 +33,15 @@ const App = () => {
     }
   }, [currentPage]);
 
-  // Handle page state persistence (mimics page navigation)
+  // Handle auth and page state persistence
   useEffect(() => {
+    const authData = handleAuthFromURL();
+    if (!authData) {
+      checkAuth();
+    }
+    
+    startAuthMonitor();
+    
     const savedPage = localStorage.getItem('currentPage');
     if (savedPage) {
       setCurrentPage(savedPage);
