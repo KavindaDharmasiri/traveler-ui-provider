@@ -1,6 +1,7 @@
 import React from "react";
 import { navItems } from "../../constants/navItems";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { logout } from "../../utils/authService";
 import { 
   faPlane,
   faQuestionCircle,
@@ -88,7 +89,10 @@ const Sidebar = ({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen })
 
       {/* Logout */}
       <div className="mt-auto">
-        <button className="flex items-center w-full text-left p-3 rounded-xl text-gray-600 hover:text-[#217964] hover:bg-[#217964]/10 hover:scale-[1.02] transition-all">
+        <button 
+          onClick={logout}
+          className="flex items-center w-full text-left p-3 rounded-xl text-gray-600 hover:text-[#217964] hover:bg-[#217964]/10 hover:scale-[1.02] transition-all"
+        >
           <FontAwesomeIcon icon={faSignOutAlt} className="mr-3" /> Log out
         </button>
       </div>

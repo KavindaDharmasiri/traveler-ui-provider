@@ -12,7 +12,8 @@ export const handleAuthFromURL = () => {
     email: urlParams.get('email'),
     name: urlParams.get('name'),
     tenantId: urlParams.get('tenantId'),
-    type: urlParams.get('type')
+    type: urlParams.get('type'),
+    country: urlParams.get('country')
   };
 
   // Save to localStorage if auth data exists

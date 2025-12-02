@@ -15,7 +15,14 @@ import ReceivedOrders from './pages/ReceivedOrders.jsx';
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('dashboard');
+  const [editItemId, setEditItemId] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Enhanced setCurrentPage to handle item ID for editing
+  const handleSetCurrentPage = useCallback((page, itemId = null) => {
+    setCurrentPage(page);
+    setEditItemId(itemId);
+  }, []);
 
   // Set the current page based on state to ensure re-render
   const renderPage = useCallback(() => {
@@ -25,13 +32,13 @@ const App = () => {
       case 'orders':
         return <ReceivedOrders />;
       case 'add':
-        return <AddItem />;
+        return <AddItem setCurrentPage={handleSetCurrentPage} editItemId={editItemId} />;
       case 'services':
-        return <MyServices />;
+        return <MyServices setCurrentPage={handleSetCurrentPage} />;
       default:
         return <Dashboard />;
     }
-  }, [currentPage]);
+  }, [currentPage, editItemId, handleSetCurrentPage]);
 
   // Handle auth and page state persistence
   useEffect(() => {
@@ -66,7 +73,7 @@ const App = () => {
       {/* Sidebar */}
       <Sidebar
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={handleSetCurrentPage}
         isMobileOpen={isSidebarOpen}
         setIsMobileOpen={setIsSidebarOpen}
       />

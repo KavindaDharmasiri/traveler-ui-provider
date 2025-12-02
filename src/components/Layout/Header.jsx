@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faCommentDots, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  const [userName, setUserName] = useState("User");
+
+  useEffect(() => {
+    const checkName = () => {
+      const name = localStorage.getItem("name");
+      if (name) {
+        setUserName(name);
+      }
+    };
+
+    checkName();
+    const interval = setInterval(checkName, 500);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  const getAvatarUrl = (name) => {
+    if (!name) return 'https://placehold.co/40x40/FF7F50/FFFFFF?text=U';
+    const words = name.trim().split(' ');
+    const initials = words.length > 1 ? words[0][0] + words[words.length - 1][0] : words[0][0];
+    return `https://placehold.co/40x40/FF7F50/FFFFFF?text=${initials.toUpperCase()}`;
+  };
+
   return (
     <header className="flex items-center justify-between bg-white p-6 rounded-2xl shadow-md mb-6">
   {/* Search */}
@@ -38,13 +61,13 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
     <div className="flex items-center space-x-2">
       <img
-        src="https://placehold.co/40x40/FF7F50/FFFFFF?text=LO"
+        src={getAvatarUrl(userName)}
         alt="User Avatar"
         className="w-10 h-10 rounded-full object-cover"
       />
       <div>
-        <p className="text-sm font-medium text-gray-800">Layla Odam</p>
-        <p className="text-xs text-gray-500">Admin</p>
+        <p className="text-sm font-medium text-gray-800">{userName}</p>
+        <p className="text-xs text-gray-500">Provider</p>
       </div>
     </div>
   </div>
