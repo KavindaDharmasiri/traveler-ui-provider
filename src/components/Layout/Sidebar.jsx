@@ -2,6 +2,7 @@ import React from "react";
 import { navItems } from "../../constants/navItems";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { logout } from "../../utils/authService";
+import TravelerLogo from "./TravlerLogo";
 import { 
   faPlane,
   faQuestionCircle,
@@ -10,7 +11,8 @@ import {
   faThLarge,
   faShoppingCart,
   faBoxOpen,
-  faSquarePlus
+  faSquarePlus,
+  faUserCircle
 } from "@fortawesome/free-solid-svg-icons";
 
 const iconMap = {
@@ -19,14 +21,17 @@ const iconMap = {
   "fa-shopping-cart": faShoppingCart,
   "fa-box-open": faBoxOpen,
   "fa-square-plus": faSquarePlus,
+  "fa-user-circle": faUserCircle,
   // Add more if needed
 };
 
 const Sidebar = ({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen }) => {
+  const logoFillColor = '#217964'; // Use the primary green color
+  const isScrolled = false; // Sidebar logo is always "at the top" state
   return (
     <aside
       className={`
-        fixed inset-y-0 left-0 z-50 w-64 bg-white p-6 flex flex-col shadow-lg rounded-r-2xl 
+        fixed inset-y-0 left-0 z-50 w-64 **bg-gray-100** p-6 flex flex-col shadow-lg rounded-r-2xl 
         transition-transform duration-300 ease-in-out 
         overflow-y-auto
         ${isMobileOpen ? "translate-x-0" : "-translate-x-full"} 
@@ -34,11 +39,14 @@ const Sidebar = ({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen })
       `}
     >
       {/* Logo */}
-      <div className="flex items-center mb-10">
-        <div className="w-10 h-10 bg-[#217964] rounded-full flex items-center justify-center mr-3">
-          <FontAwesomeIcon icon={faPlane} className="text-white text-xl" />
+      <div className="flex items-center mb-10 w-full justify-start">
+      {/* Increased size (h-14 w-56 from h-12 w-48) and margin-left (ml-4 from ml-2) */}
+      <div className="h-18 w-72 flex items-center justify-start -ml-6">
+        <TravelerLogo
+          logoFillColor={logoFillColor}
+          isScrolled={isScrolled}
+        />
         </div>
-        <span className="text-xl font-semibold text-gray-800">Logo name</span>
       </div>
 
       {/* Menu */}

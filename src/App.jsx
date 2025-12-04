@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard.jsx';
 import MyServices from './pages/MyServices.jsx';
 import AddItem from './pages/AddItem.jsx';
 import ReceivedOrders from './pages/ReceivedOrders.jsx';
+import Profile from './pages/Profile.jsx';
 
 // --- Main App Component ---
 
@@ -35,6 +36,8 @@ const App = () => {
         return <AddItem setCurrentPage={handleSetCurrentPage} editItemId={editItemId} />;
       case 'services':
         return <MyServices setCurrentPage={handleSetCurrentPage} />;
+      case 'profile':
+        return <Profile />;
       default:
         return <Dashboard />;
     }

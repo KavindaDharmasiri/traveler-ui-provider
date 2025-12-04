@@ -33,9 +33,9 @@ const Dashboard = () => {
       <main className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Sales Chart Placeholder */}
         <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg animate-on-scroll transform opacity-0 translate-y-4">
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">Sales Performance (Last 6 Months)</h3>
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">Add Calendar Here</h3>
           <div className="h-64 flex items-center justify-center text-gray-500 bg-gray-50 rounded-lg border border-dashed">
-            [Chart Visualization Placeholder]
+            [Calendar Visualization Placeholder]
           </div>
         </div>
 
