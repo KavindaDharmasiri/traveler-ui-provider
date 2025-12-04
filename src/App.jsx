@@ -11,6 +11,7 @@ import MyServices from './pages/MyServices.jsx';
 import AddItem from './pages/AddItem.jsx';
 import ReceivedOrders from './pages/ReceivedOrders.jsx';
 import Profile from './pages/Profile.jsx';
+import Settings from './components/Layout/Settings.jsx';
 
 // --- Main App Component ---
 
@@ -38,6 +39,8 @@ const App = () => {
         return <MyServices setCurrentPage={handleSetCurrentPage} />;
       case 'profile':
         return <Profile />;
+      case 'settings':
+        return <Settings />;
       default:
         return <Dashboard />;
     }

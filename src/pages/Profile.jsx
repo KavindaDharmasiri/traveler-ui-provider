@@ -62,9 +62,8 @@ const Profile = () => {
   };
 
   return (
-    <div 
-    ref={contentRef}
-    className="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-xl">
+    <div ref={contentRef} className="max-w-5xl mx-auto p-8">
+      <div className="bg-white shadow-xl rounded-2xl p-8 animate-on-scroll">
       <h2 className="text-3xl font-bold mb-8 text-gray-800 border-b pb-4">
         <FontAwesomeIcon icon={faUser} className="mr-3 text-[#217964]" />
         User Profile
@@ -326,6 +325,7 @@ const Profile = () => {
             </button>
           </>
         )}
+      </div>
       </div>
     </div>
   );

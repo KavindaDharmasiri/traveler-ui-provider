@@ -22,6 +22,8 @@ const iconMap = {
   "fa-box-open": faBoxOpen,
   "fa-square-plus": faSquarePlus,
   "fa-user-circle": faUserCircle,
+  "fa-cog": faCog,
+  "fa-question-circle": faQuestionCircle,
   // Add more if needed
 };
 
@@ -87,11 +89,22 @@ const Sidebar = ({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen })
           </li>
 
           <li className="mb-4">
-            <button className="flex items-center w-full text-left p-3 rounded-xl text-gray-600 hover:text-[#217964] hover:bg-[#217964]/10 transition-all hover:scale-[1.02]">
-              <FontAwesomeIcon icon={faCog} className="mr-3" />
-              Setting
-            </button>
-          </li>
+            <button 
+                onClick={() => {
+                    setCurrentPage('settings');
+                    setIsMobileOpen(false);
+                }}
+                className={`
+                    flex items-center w-full text-left p-3 rounded-xl transition-all duration-200
+                    ${currentPage === 'settings' 
+                        ? "text-[#217964] font-medium bg-[#217964]/10 scale-[1.02]"
+                        : "text-gray-600 hover:text-[#217964] hover:bg-[#217964]/10 hover:scale-[1.02]"
+                    }
+                `}>
+              <FontAwesomeIcon icon={faCog} className="mr-3" />
+              Setting
+            </button>
+          </li>
         </ul>
       </nav>
 
