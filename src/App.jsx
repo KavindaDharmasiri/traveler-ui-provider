@@ -12,13 +12,20 @@ import AddItem from './pages/AddItem.jsx';
 import ReceivedOrders from './pages/ReceivedOrders.jsx';
 import Profile from './pages/Profile.jsx';
 import Settings from './components/Layout/Settings.jsx';
+import NotificationContext from './components/context/NotificationContext.jsx';
 
 // --- Main App Component ---
+const initialNotifications = [
+  { id: 1, message: "Product B-45 sale ends in 3 hours.", time: "5m ago", isRead: false },
+  { id: 2, message: "You have a new message from Support.", time: "1h ago", isRead: false },
+  { id: 3, message: "New voucher 'SUMMER20' is available.", time: "3h ago", isRead: true }, // Example of a read one
+];
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('dashboard');
   const [editItemId, setEditItemId] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [notifications, setNotifications] = useState(initialNotifications);
 
   // Enhanced setCurrentPage to handle item ID for editing
   const handleSetCurrentPage = useCallback((page, itemId = null) => {
@@ -87,10 +94,12 @@ const App = () => {
       {/* Main Content Area */}
       <div className="flex-1 lg:ml-64 flex flex-col">
         {/* Header */}
+        <NotificationContext.Provider value={{notifications, setNotifications}}>
         <Header
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
         />
+        </NotificationContext.Provider>
 
         {/* Content */}
         <main className="flex-1 overflow-y-auto custom-scrollbar">

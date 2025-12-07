@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { X, BellOff, Check } from "lucide-react"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // Assuming you use FA icons elsewhere
 import { faCheck } from '@fortawesome/free-solid-svg-icons'; // Import the solid check icon
+import NotificationContext from '../context/NotificationContext.jsx';
 
 // Initial data, now with a default 'read' status
-const initialNotifications = [
-  { id: 1, message: "Product B-45 sale ends in 3 hours.", time: "5m ago", isRead: false },
-  { id: 2, message: "You have a new message from Support.", time: "1h ago", isRead: false },
-  { id: 3, message: "New voucher 'SUMMER20' is available.", time: "3h ago", isRead: true }, // Example of a read one
-];
+
 
 const NotificationPanel = ({ isOpen, onClose, setUnreadCount }) => {
-  const [notifications, setNotifications] = useState(initialNotifications);
+  const { notifications, setNotifications } = useContext(NotificationContext);
 
   // Function to mark a single notification as read
   const handleRead = (id) => {

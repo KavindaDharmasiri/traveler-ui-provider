@@ -1,10 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import { Menu, X } from "lucide-react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faCommentDots, faSearch } from '@fortawesome/free-solid-svg-icons';
 import NotificationPanel from "./NotificationPanel"; // Import the new component
+import NotificationContext from '../context/NotificationContext.jsx';
 
-const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
+const initialNotifications = [
+  { id: 1, message: "Product B-45 sale ends in 3 hours.", time: "5m ago", isRead: false },
+  { id: 2, message: "You have a new message from Support.", time: "1h ago", isRead: false },
+  { id: 3, message: "New voucher 'SUMMER20' is available.", time: "3h ago", isRead: true }, // Example of a read one
+];
+
+const Header = ({ isSidebarOpen, setIsSidebarOpen  }) => {
+
+  const { notifications } = useContext(NotificationContext);
+  const unreadNotifications = notifications.filter(n => !n.isRead);
+
   const [userName, setUserName] = useState("User");
   // State for the notification panel
   const [isNotificationOpen, setIsNotificationOpen] = useState(false); 
@@ -35,6 +46,7 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
     setIsNotificationOpen(prev => !prev);
   };
 
+ 
   return (
     <>
       {/* Render the separate Notification Panel component */}
@@ -76,6 +88,11 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen }) => {
             >
               <FontAwesomeIcon icon={faBell} className="text-xl" />
             </button>
+            <div>
+              {unreadNotifications.length > 0 && (
+                <span className="absolute top-0 right-1 bg-red-500 text-white text-sm w-4 h-4 flex items-center justify-center rounded-full ring-2 ring-white">{unreadNotifications.length}</span>
+              )}
+            </div>
 
             
           </div>
