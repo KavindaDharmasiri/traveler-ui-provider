@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faCommentDots, faSearch } from '@fortawesome/free-solid-svg-icons';
 import NotificationPanel from "./NotificationPanel"; // Import the new component
 import NotificationContext from '../context/NotificationContext.jsx';
+import axiosInstance from '../../api/axiosInstance';
 
 const initialNotifications = [
   { id: 1, message: "Product B-45 sale ends in 3 hours.", time: "5m ago", isRead: false },
@@ -13,26 +14,62 @@ const initialNotifications = [
 
 const Header = ({ isSidebarOpen, setIsSidebarOpen  }) => {
 
-  const { notifications } = useContext(NotificationContext);
-  const unreadNotifications = notifications.filter(n => !n.isRead);
+  const { notifications, unreadCount } = useContext(NotificationContext);
 
   const [userName, setUserName] = useState("User");
+  const [profileImage, setProfileImage] = useState(null);
   // State for the notification panel
   const [isNotificationOpen, setIsNotificationOpen] = useState(false); 
 
   useEffect(() => {
-    const checkName = () => {
+    // Initial fetch
+    fetchUserProfile();
+    
+    // Set up interval to fetch every 30 seconds
+    const interval = setInterval(fetchUserProfile, 30000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  const fetchUserProfile = async () => {
+    try {
+      const response = await axiosInstance.get('auth/me');
+      const userData = response.data;
+      
+      if (userData.name) {
+        setUserName(userData.name);
+        // Also update localStorage for backward compatibility
+        localStorage.setItem('name', userData.name);
+      }
+      
+      // Fetch profile image if UUID exists
+      if (userData.profileImageUuid) {
+        fetchProfileImage(userData.profileImageUuid);
+      } else {
+        setProfileImage(null);
+      }
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+      // Fallback to localStorage
       const name = localStorage.getItem("name");
       if (name) {
         setUserName(name);
       }
-    };
+    }
+  };
 
-    checkName();
-    const interval = setInterval(checkName, 500);
-    
-    return () => clearInterval(interval);
-  }, []);
+  const fetchProfileImage = async (imageUuid) => {
+    try {
+      const response = await axiosInstance.get(`storage/files/download/${imageUuid}`, {
+        responseType: 'blob'
+      });
+      const imageUrl = URL.createObjectURL(response.data);
+      setProfileImage(imageUrl);
+    } catch (error) {
+      console.error('Error fetching profile image:', error);
+      setProfileImage(null);
+    }
+  };
 
   const getAvatarUrl = (name) => {
     if (!name) return 'https://placehold.co/40x40/FF7F50/FFFFFF?text=U';
@@ -87,14 +124,10 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen  }) => {
               aria-label="Toggle notifications"
             >
               <FontAwesomeIcon icon={faBell} className="text-xl" />
-            </button>
-            <div>
-              {unreadNotifications.length > 0 && (
-                <span className="absolute top-0 right-1 bg-red-500 text-white text-sm w-4 h-4 flex items-center justify-center rounded-full ring-2 ring-white">{unreadNotifications.length}</span>
+              {unreadCount > 0 && (
+                <span className="absolute top-1 right-1 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full ring-2 ring-white">{unreadCount}</span>
               )}
-            </div>
-
-            
+            </button>
           </div>
 
           <button className="text-gray-500 hover:text-[#217964] p-2 rounded-full hover:bg-gray-100 transition-all duration-200 hover:scale-110">
@@ -103,9 +136,12 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen  }) => {
 
           <div className="flex items-center space-x-2">
             <img
-              src={getAvatarUrl(userName)}
+              src={profileImage || getAvatarUrl(userName)}
               alt="User Avatar"
-              className="w-10 h-10 rounded-full object-cover"
+              className="w-10 h-10 rounded-full object-cover border-2 border-gray-200"
+              onError={(e) => {
+                e.target.src = getAvatarUrl(userName);
+              }}
             />
             <div>
               <p className="text-sm font-medium text-gray-800">{userName}</p>

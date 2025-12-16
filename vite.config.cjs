@@ -16,6 +16,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: false
       },
+      "/notification": {
+        target: "http://localhost:5555",
+        changeOrigin: true,
+        secure: false
+      },
       "/storage": {
         target: "http://localhost:5555",
         changeOrigin: true,

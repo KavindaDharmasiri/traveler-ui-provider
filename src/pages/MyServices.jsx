@@ -15,6 +15,7 @@ const MyServices = ({ setCurrentPage }) => {
   const [imageMapper, setImageMapper] = useState({});
   const [currentImageIndex, setCurrentImageIndex] = useState({});
   const [currentPage, setCurrentPageNum] = useState(1);
+  const [userVerification, setUserVerification] = useState({ isEmailVerified: true, isNumberVerified: true });
   const itemsPerPage = 6;
 
   const contentRef = useRef(null);
@@ -24,8 +25,21 @@ const MyServices = ({ setCurrentPage }) => {
   console.log('Loading state:', loading);
 
   useEffect(() => {
+    checkVerificationStatus();
     fetchServices();
   }, []);
+
+  const checkVerificationStatus = async () => {
+    try {
+      const response = await axiosInstance.get('auth/me');
+      setUserVerification({
+        isEmailVerified: response.data.isEmailVerified === true,
+        isNumberVerified: response.data.isNumberVerified === true
+      });
+    } catch (error) {
+      console.error('Error checking verification status:', error);
+    }
+  };
 
   const fetchImages = async (imageUuids) => {
     const mapper = {};
@@ -113,9 +127,50 @@ const MyServices = ({ setCurrentPage }) => {
     );
   }
 
+  const isVerified = userVerification.isEmailVerified && userVerification.isNumberVerified;
+
   return (
-    <div className="h-full bg-gradient-to-br from-gray-50 to-gray-100 overflow-auto">
-      <div ref={contentRef} className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="h-full bg-gradient-to-br from-gray-50 to-gray-100 overflow-auto relative">
+      {/* Verification Overlay */}
+      {!isVerified && (
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="bg-white rounded-3xl p-8 max-w-md mx-4 shadow-2xl text-center">
+            <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <FontAwesomeIcon icon={faBoxOpen} className="text-3xl text-red-500" />
+            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Verification Required</h2>
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Please verify your email and phone number to access your services.
+            </p>
+            <div className="space-y-3 mb-6">
+              <div className={`flex items-center justify-between p-3 rounded-lg ${
+                userVerification.isEmailVerified ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+              }`}>
+                <span className="text-sm font-medium">Email Verification</span>
+                <span className="text-xs">
+                  {userVerification.isEmailVerified ? '✓ Verified' : '✗ Not Verified'}
+                </span>
+              </div>
+              <div className={`flex items-center justify-between p-3 rounded-lg ${
+                userVerification.isNumberVerified ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'
+              }`}>
+                <span className="text-sm font-medium">Phone Verification</span>
+                <span className="text-xs">
+                  {userVerification.isNumberVerified ? '✓ Verified' : '✗ Not Verified'}
+                </span>
+              </div>
+            </div>
+            <button
+              onClick={() => setCurrentPage('profile')}
+              className="w-full py-3 bg-[#217964] text-white rounded-xl font-medium hover:bg-[#1a5d4e] transition-colors"
+            >
+              Go to Profile to Verify
+            </button>
+          </div>
+        </div>
+      )}
+      
+      <div ref={contentRef} className={`container mx-auto px-4 sm:px-6 lg:px-8 py-8 ${!isVerified ? 'pointer-events-none' : ''}`}>
         {/* Header Section */}
         <div className="mb-8 sm:mb-12">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
