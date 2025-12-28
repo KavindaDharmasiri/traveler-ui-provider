@@ -64,17 +64,21 @@ const Sidebar = ({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen })
                     setIsMobileOpen(false);
                   }}
                   className={`
-                    flex items-center w-full text-left p-3 rounded-xl transition-all duration-200
+                    flex items-center gap-3 w-full text-left p-3 rounded-xl transition-all duration-200
                     ${isActive
                       ? "text-[#217964] font-medium bg-[#217964]/10 scale-[1.02]"
                       : "text-gray-600 hover:text-[#217964] hover:bg-[#217964]/10 hover:scale-[1.02]"
                     }
                   `}
                 >
-                  {iconMap[item.icon] && (
-                    <FontAwesomeIcon icon={iconMap[item.icon]} className="mr-3" />
+                  {typeof item.icon === "string" ? (
+                    <i className={`${item.icon} text-lg`} />
+                    ) : (
+                    <item.icon className="w-5 h-5" />
                   )}
+                  <span className="text-sm font-medium">
                   {item.name}
+                  </span>
                 </button>
               </li>
             );
