@@ -372,7 +372,7 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
   }, [editItemId]);
 
   const resetForm = () => {
-    setFormData({ name: "", contact: "", description: "", pricePerDay: "" });
+    setFormData({ name: "", contact: "", description: "", pricePerDay: "" , qty: ""});
     setCategory("");
     setImages([]);
     setImageUrls([]);
@@ -742,6 +742,21 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
                 placeholder="Enter your service name"
                 required
               />
+            </div>
+
+            <div className="space-y-6">
+            <div>
+              <label className="block mb-3 font-semibold text-gray-900">Quantity</label>
+              <input 
+                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-[#217964] focus:ring-2 focus:ring-[#217964]/20 transition-all duration-200" 
+                type="number" 
+                name="qty"
+                value={formData.qty}
+                onChange={handleInputChange}
+                placeholder="Enter the available quantity"
+                required
+              />
+            </div>
             </div>
 
             <div>
