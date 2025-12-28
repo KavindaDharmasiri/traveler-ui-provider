@@ -410,7 +410,7 @@ const OrderDetailsView = ({ order, onBack, onUpdateStatus }) => {
                   <h3 className="text-xl font-bold text-gray-800">
                     {item.itemObj?.name || `Item ${item.item}`}
                   </h3>
-                  <p className="text-gray-600">Rs. {item.totalPrice} • {item.rentalDays} days</p>
+                  <p className="text-gray-600">Rs. {item.totalPrice} • {item.rentalDays} days • Qty: {item.qty}</p>
                   <p className="text-sm text-gray-500">
                     {item.pickupDate} to {item.returnDate}
                   </p>
@@ -451,6 +451,80 @@ const OrderDetailsView = ({ order, onBack, onUpdateStatus }) => {
                         className="w-20 h-20 object-cover rounded border border-gray-200 flex-shrink-0"
                       />
                     ))}
+                  </div>
+                </div>
+              )}
+              
+              {/* Vehicle Details Section */}
+              {item.itemObj?.category === "VEHICLES" && item.itemObj?.vehicleDetails && (
+                <div className="mb-4 p-4 bg-teal-50 rounded-lg border border-teal-200">
+                  <p className="text-sm font-semibold text-teal-800 mb-3 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-teal-500 rounded-full"></span>
+                    Vehicle Details
+                  </p>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                    <div>
+                      <span className="text-gray-600">Vehicle No:</span>
+                      <p className="font-semibold text-gray-800">{item.itemObj.vehicleDetails.vehicleNumber}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Passengers:</span>
+                      <p className="font-semibold text-gray-800">{item.itemObj.vehicleDetails.passengerCount}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Condition:</span>
+                      <span className={`px-2 py-1 rounded text-xs font-semibold ${
+                        item.itemObj.vehicleDetails.condition === 'AC' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-700'
+                      }`}>
+                        {item.itemObj.vehicleDetails.condition}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Driver:</span>
+                      <span className={`px-2 py-1 rounded text-xs font-semibold ${
+                        item.itemObj.vehicleDetails.driverStatus === 'WITH_DRIVER' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
+                      }`}>
+                        {item.itemObj.vehicleDetails.driverStatus === 'WITH_DRIVER' ? 'With Driver' : 'Self Drive'}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">KM/Day:</span>
+                      <p className="font-semibold text-gray-800">{item.itemObj.vehicleDetails.kmPerDay} km</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Extra KM:</span>
+                      <p className="font-semibold text-gray-800">{item.itemObj.currency} {item.itemObj.vehicleDetails.pricePerExtraKm}/km</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Waiting:</span>
+                      <p className="font-semibold text-gray-800">{item.itemObj.currency} {item.itemObj.vehicleDetails.waitingChargePerNight}/night</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Hotel Details Section */}
+              {item.itemObj?.category === "HOTELS" && item.itemObj?.hotelDetails && (
+                <div className="mb-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                  <p className="text-sm font-semibold text-blue-800 mb-3 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                    Hotel Details
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                    <div className="md:col-span-2">
+                      <span className="text-gray-600">Address:</span>
+                      <p className="font-semibold text-gray-800">{item.itemObj.hotelDetails.address}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Max Guests:</span>
+                      <p className="font-semibold text-gray-800">{item.itemObj.hotelDetails.maxGuests} guests</p>
+                    </div>
+                    {item.itemObj.hotelDetails.roomNumber && (
+                      <div>
+                        <span className="text-gray-600">Room Number:</span>
+                        <p className="font-semibold text-gray-800">{item.itemObj.hotelDetails.roomNumber}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}

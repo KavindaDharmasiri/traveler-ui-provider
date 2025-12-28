@@ -635,7 +635,8 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
         description: formData.description,
         pricePerDay: parseFloat(formData.pricePerDay),
         currency: selectedCurrency,
-        images: images
+        images: images,
+        qty: formData.qty
       };
 
       if (category === "vehicles") {
