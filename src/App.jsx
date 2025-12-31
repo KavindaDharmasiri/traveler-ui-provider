@@ -9,6 +9,8 @@ import MyServices from './pages/MyServices.jsx';
 import AddItem from './pages/AddItem.jsx';
 import ReceivedOrders from './pages/ReceivedOrders.jsx';
 import Profile from './pages/Profile.jsx';
+import Wallet from './pages/Wallet.jsx';
+import Ongoing from './pages/Ongoing.jsx';
 import Settings from './components/Layout/Settings.jsx';
 import { NotificationProvider } from './components/context/NotificationContext.jsx';
 
@@ -36,6 +38,10 @@ const App = () => {
         return <Profile />;
       case 'settings':
         return <Settings />;
+      case 'wallet':
+        return <Wallet />;
+      case 'ongoing':
+        return <Ongoing />;
       default:
         return <Dashboard />;
     }
