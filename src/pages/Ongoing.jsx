@@ -627,6 +627,14 @@ const PastOrderCard = ({ data, isOngoing = false, onClick, onDownloadPDF }) => {
               Order {data.orderCode}
             </h3>
             <p className="text-sm text-gray-500">Customer: {data.customerName}</p>
+            {data.status === 'ACCEPTED' && (
+              <div className="mt-2 px-3 py-1 bg-yellow-100 border border-yellow-300 rounded-lg shadow-lg animate-pulse">
+                <p className="text-xs font-semibold text-yellow-800 flex items-center gap-1">
+                  <span className="w-2 h-2 bg-yellow-500 rounded-full animate-ping"></span>
+                  Payment is pending
+                </p>
+              </div>
+            )}
           </div>
         </div>
         
@@ -671,7 +679,7 @@ const PastOrderCard = ({ data, isOngoing = false, onClick, onDownloadPDF }) => {
               Download PDF
             </button>
           )}
-          {isOngoing && (
+          {isOngoing && data.status !== 'ACCEPTED' && (
             <button className="px-3 py-1.5 bg-green-500 text-white text-xs rounded-lg hover:bg-green-600 transition-colors">
               Mark Complete
             </button>
