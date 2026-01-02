@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboardList, faFilter, faTimes, faStore, faMapPin } from '@fortawesome/free-solid-svg-icons';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import axiosInstance from '../api/axiosInstance';
+import Swal from 'sweetalert2';
 
 const ReceivedOrders = () => {
   const contentRef = React.useRef(null);
@@ -299,18 +300,29 @@ const OrderCard = ({ order, onViewDetails, onUpdateStatus }) => {
             <div className="flex gap-2">
               <button
                 onClick={async () => {
-                  if (!order.orderId) {
-                    // Fetch order details to get the order ID
-                    try {
-                      const response = await axiosInstance.get(`core/api/v1/order/code/${order.orderCode}`);
-                      if (response.data && response.data.id) {
-                        onUpdateStatus(response.data.id, null, 'ACCEPTED');
+                  const result = await Swal.fire({
+                    title: 'Accept All Items?',
+                    text: 'Are you sure you want to accept all items in this order?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#217964',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, Accept All'
+                  });
+                  
+                  if (result.isConfirmed) {
+                    if (!order.orderId) {
+                      try {
+                        const response = await axiosInstance.get(`core/api/v1/order/code/${order.orderCode}`);
+                        if (response.data && response.data.id) {
+                          onUpdateStatus(response.data.id, null, 'ACCEPTED');
+                        }
+                      } catch (error) {
+                        console.error('Error fetching order ID:', error);
                       }
-                    } catch (error) {
-                      console.error('Error fetching order ID:', error);
+                    } else {
+                      onUpdateStatus(order.orderId, null, 'ACCEPTED');
                     }
-                  } else {
-                    onUpdateStatus(order.orderId, null, 'ACCEPTED');
                   }
                 }}
                 className="bg-[#217964] text-white px-4 py-2 rounded-lg text-sm hover:bg-[#1a5d4e] transition"
@@ -319,18 +331,29 @@ const OrderCard = ({ order, onViewDetails, onUpdateStatus }) => {
               </button>
               <button
                 onClick={async () => {
-                  if (!order.orderId) {
-                    // Fetch order details to get the order ID
-                    try {
-                      const response = await axiosInstance.get(`core/api/v1/order/code/${order.orderCode}`);
-                      if (response.data && response.data.id) {
-                        onUpdateStatus(response.data.id, null, 'CANCELLED');
+                  const result = await Swal.fire({
+                    title: 'Reject All Items?',
+                    text: 'Are you sure you want to reject all items in this order?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6b7280',
+                    confirmButtonText: 'Yes, Reject All'
+                  });
+                  
+                  if (result.isConfirmed) {
+                    if (!order.orderId) {
+                      try {
+                        const response = await axiosInstance.get(`core/api/v1/order/code/${order.orderCode}`);
+                        if (response.data && response.data.id) {
+                          onUpdateStatus(response.data.id, null, 'CANCELLED');
+                        }
+                      } catch (error) {
+                        console.error('Error fetching order ID:', error);
                       }
-                    } catch (error) {
-                      console.error('Error fetching order ID:', error);
+                    } else {
+                      onUpdateStatus(order.orderId, null, 'CANCELLED');
                     }
-                  } else {
-                    onUpdateStatus(order.orderId, null, 'CANCELLED');
                   }
                 }}
                 className="bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-600 transition"
