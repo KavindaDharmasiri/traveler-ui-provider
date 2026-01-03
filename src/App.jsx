@@ -13,6 +13,8 @@ import Wallet from './pages/Wallet.jsx';
 import Ongoing from './pages/Ongoing.jsx';
 import Settings from './components/Layout/Settings.jsx';
 import { NotificationProvider } from './components/context/NotificationContext.jsx';
+import { Route } from 'lucide-react';
+import { Routes } from 'react-router-dom';
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState('dashboard');
@@ -24,28 +26,18 @@ const App = () => {
     setEditItemId(itemId);
   }, []);
 
-  const renderPage = useCallback(() => {
-    switch (currentPage) {
-      case 'dashboard':
-        return <Dashboard />;
-      case 'orders':
-        return <ReceivedOrders />;
-      case 'add':
-        return <AddItem setCurrentPage={handleSetCurrentPage} editItemId={editItemId} />;
-      case 'services':
-        return <MyServices setCurrentPage={handleSetCurrentPage} />;
-      case 'profile':
-        return <Profile />;
-      case 'settings':
-        return <Settings />;
-      case 'wallet':
-        return <Wallet />;
-      case 'ongoing':
-        return <Ongoing />;
-      default:
-        return <Dashboard />;
-    }
-  }, [currentPage, editItemId, handleSetCurrentPage]);
+  
+
+  <Routes>
+    <Route path="/" element={<Dashboard />} />
+    <Route path="/orders" element={<ReceivedOrders />} />
+    <Route path="/add" element={<AddItem setCurrentPage={handleSetCurrentPage} editItemId={editItemId} />} />
+    <Route path="/services" element={<MyServices setCurrentPage={handleSetCurrentPage} />} />
+    <Route path="/profile" element={<Profile />} />
+    <Route path="/settings" element={<Settings />} />
+    <Route path="/wallet" element={<Wallet />} />
+    <Route path="/ongoing" element={<Ongoing />} />
+  </Routes>
 
   useEffect(() => {
     const authData = handleAuthFromURL();

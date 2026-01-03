@@ -23,10 +23,10 @@ const Wallet = () => {
     <div className="min-h-screen bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 flex flex-col md:flex-row transition-colors duration-200 font-sans overflow-hidden">
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col h-screen overflow-y-auto relative">
+      <main className="flex-1 flex flex-col h-screen  relative">
 
         {/* Scrollable Dashboard Content */}
-        <div className="flex-1 overflow-y-auto px-4 md:px-8 pb-8 pt-4">
+        <div className="flex-1  px-4 md:px-8 pb-8 pt-4">
           <div className="max-w-7xl mx-auto flex flex-col gap-8">
             
             {/* Financial Stats Row */}
