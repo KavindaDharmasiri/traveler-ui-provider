@@ -1,23 +1,23 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { handleAuthFromURL, checkAuth, startAuthMonitor } from './utils/authHandler';
+import React, { useState, useEffect, useCallback } from "react";
+import { handleAuthFromURL, checkAuth, startAuthMonitor } from "./utils/authHandler";
 
-import Sidebar from './components/Layout/Sidebar.jsx';
-import Header from './components/Layout/Header.jsx';
+import Sidebar from "./components/Layout/Sidebar.jsx";
+import Header from "./components/Layout/Header.jsx";
 
-import Dashboard from './pages/Dashboard.jsx';
-import MyServices from './pages/MyServices.jsx';
-import AddItem from './pages/AddItem.jsx';
-import ReceivedOrders from './pages/ReceivedOrders.jsx';
-import Profile from './pages/Profile.jsx';
-import Wallet from './pages/Wallet.jsx';
-import Ongoing from './pages/Ongoing.jsx';
-import Settings from './components/Layout/Settings.jsx';
-import { NotificationProvider } from './components/context/NotificationContext.jsx';
-import { Route } from 'lucide-react';
-import { Routes } from 'react-router-dom';
+import Dashboard from "./pages/Dashboard.jsx";
+import MyServices from "./pages/MyServices.jsx";
+import AddItem from "./pages/AddItem.jsx";
+import ReceivedOrders from "./pages/ReceivedOrders.jsx";
+import Profile from "./pages/Profile.jsx";
+import Wallet from "./pages/Wallet.jsx";
+import Ongoing from "./pages/Ongoing.jsx";
+import Settings from "./components/Layout/Settings.jsx";
+
+import { NotificationProvider } from "./components/context/NotificationContext.jsx";
+import { Routes, Route } from "react-router-dom"; // ✅ FIX: import Route from react-router-dom
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState('dashboard');
+  const [currentPage, setCurrentPage] = useState("dashboard");
   const [editItemId, setEditItemId] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -26,40 +26,27 @@ const App = () => {
     setEditItemId(itemId);
   }, []);
 
-  
-
-  <Routes>
-    <Route path="/" element={<Dashboard />} />
-    <Route path="/orders" element={<ReceivedOrders />} />
-    <Route path="/add" element={<AddItem setCurrentPage={handleSetCurrentPage} editItemId={editItemId} />} />
-    <Route path="/services" element={<MyServices setCurrentPage={handleSetCurrentPage} />} />
-    <Route path="/profile" element={<Profile />} />
-    <Route path="/settings" element={<Settings />} />
-    <Route path="/wallet" element={<Wallet />} />
-    <Route path="/ongoing" element={<Ongoing />} />
-  </Routes>
-
   useEffect(() => {
     const authData = handleAuthFromURL();
     if (!authData) {
       checkAuth();
     }
-    
+
     startAuthMonitor();
-    
-    const savedPage = localStorage.getItem('currentPage');
+
+    const savedPage = localStorage.getItem("currentPage");
     if (savedPage) {
       setCurrentPage(savedPage);
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('currentPage', currentPage);
+    localStorage.setItem("currentPage", currentPage);
   }, [currentPage]);
 
   return (
     <NotificationProvider>
-      <div className="min-h-screen bg-gray-50 flex" style={{ fontFamily: 'Inter, sans-serif' }}>
+      <div className="min-h-screen bg-gray-50 flex" style={{ fontFamily: "Inter, sans-serif" }}>
         {isSidebarOpen && (
           <div
             className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
@@ -75,13 +62,23 @@ const App = () => {
         />
 
         <div className="flex-1 lg:ml-64 flex flex-col">
-          <Header
-            isSidebarOpen={isSidebarOpen}
-            setIsSidebarOpen={setIsSidebarOpen}
-          />
+          <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
 
-          <main className="flex-1 overflow-y-auto custom-scrollbar">
-            {renderPage()}
+          {/* ✅ FIX: Routes must be rendered inside the return JSX */}
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/orders" element={<ReceivedOrders />} />
+              <Route
+                path="/add"
+                element={<AddItem setCurrentPage={handleSetCurrentPage} editItemId={editItemId} />}
+              />
+              <Route path="/services" element={<MyServices setCurrentPage={handleSetCurrentPage} />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/wallet" element={<Wallet />} />
+              <Route path="/ongoing" element={<Ongoing />} />
+            </Routes>
           </main>
         </div>
 

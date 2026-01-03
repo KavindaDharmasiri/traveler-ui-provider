@@ -3,6 +3,8 @@ import { navItems } from "../../constants/navItems";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { logout } from "../../utils/authService";
 import TravelerLogo from "./TravlerLogo";
+import {Link} from 'react-router-dom';
+
 import { 
   faPlane,
   faQuestionCircle,
@@ -58,7 +60,7 @@ const Sidebar = ({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen })
             const isActive = currentPage === item.page;
             return (
               <li key={item.page} className="mb-4">
-                <button
+                <Link to={item.path}
                   onClick={() => {
                     setCurrentPage(item.page);
                     setIsMobileOpen(false);
@@ -79,7 +81,7 @@ const Sidebar = ({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen })
                   <span className="text-sm font-medium">
                   {item.name}
                   </span>
-                </button>
+                </Link>
               </li>
             );
           })}
