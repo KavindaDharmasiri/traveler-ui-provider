@@ -14,7 +14,7 @@ import Ongoing from "./pages/Ongoing.jsx";
 import Settings from "./components/Layout/Settings.jsx";
 
 import { NotificationProvider } from "./components/context/NotificationContext.jsx";
-import { Routes, Route } from "react-router-dom"; // ✅ FIX: import Route from react-router-dom
+import { Routes, Route } from "react-router-dom"; 
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState("dashboard");
