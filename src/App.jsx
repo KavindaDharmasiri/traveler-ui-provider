@@ -71,7 +71,7 @@ const App = () => {
               <Route path="/orders" element={<ReceivedOrders />} />
               <Route
                 path="/add"
-                element={<AddItem setCurrentPage={handleSetCurrentPage} editItemId={editItemId} />}
+                element={<AddItem/>}
               />
               <Route path="/services" element={<MyServices setCurrentPage={handleSetCurrentPage} />} />
               <Route path="/profile" element={<Profile />} />

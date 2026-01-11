@@ -26,7 +26,7 @@ const Wallet = () => {
       <main className="flex-1 flex flex-col h-screen relative">
 
         {/* Scrollable Dashboard Content */}
-        <div className="flex-1 px-4 md:px-8 pb-8 pt-4 overflow-y-auto">
+        <div className="flex-1 px-4 md:px-8 pb-8 pt-4 overflow-y-auto scrollbar-hide">
           <div className="max-w-7xl mx-auto flex flex-col gap-8">
             
             {/* Financial Stats Row */}

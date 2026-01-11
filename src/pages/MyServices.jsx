@@ -6,8 +6,9 @@ import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import axiosInstance from "../api/axiosInstance";
 import LoadingScreen from "../components/common/LoadingScreen";
 import Swal from 'sweetalert2';
+import { Link } from "react-router-dom";
 
-const MyServices = ({ setCurrentPage }) => {
+const MyServices = () => {
   const [services, setServices] = useState([]);
   const [editingService, setEditingService] = useState(null);
   const [panelOpen, setPanelOpen] = useState(false);
@@ -203,13 +204,15 @@ const MyServices = ({ setCurrentPage }) => {
               <p className="text-gray-600 mb-8 leading-relaxed">
                 Start building your service portfolio and reach more customers
               </p>
+              <Link to="/add">
               <button 
-                onClick={() => setCurrentPage('add')}
+                
                 className="inline-flex items-center px-6 py-3 bg-[#217964] text-white font-medium rounded-xl hover:bg-[#1a5d4e] transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
                 <FontAwesomeIcon icon={faPlus} className="mr-2" />
                 Add Your First Service
               </button>
+              </Link>
             </div>
           </div>
         ) : (
