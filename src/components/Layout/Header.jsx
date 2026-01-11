@@ -129,7 +129,7 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen  }) => {
               )}
             </button>
           </div>
-
+              
           <button className="text-gray-500 hover:text-[#217964] p-2 rounded-full hover:bg-gray-100 transition-all duration-200 hover:scale-110">
             <FontAwesomeIcon icon={faCommentDots} className="text-xl" />
           </button>

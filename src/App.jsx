@@ -78,6 +78,7 @@ const App = () => {
               <Route path="/settings" element={<Settings />} />
               <Route path="/wallet" element={<Wallet />} />
               <Route path="/ongoing" element={<Ongoing />} />
+              <Route path="/edit-profile" element={<Profile />} />
             </Routes>
           </main>
         </div>
