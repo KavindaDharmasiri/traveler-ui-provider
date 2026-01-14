@@ -39,7 +39,7 @@ export const checkAuth = () => {
   const tenantId = localStorage.getItem('tenantId');
   
   if (!accessToken || !tenantId) {
-    window.location.href = NAVIGATION_CONFIG.LOGIN_URL;
+    // window.location.href = NAVIGATION_CONFIG.LOGIN_URL;
     return false;
   }
   

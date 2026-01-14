@@ -1,10 +1,11 @@
 import React, { useState, useEffect,useContext } from "react";
 import { Menu, X } from "lucide-react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faCommentDots, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faSearch, faHeadset } from '@fortawesome/free-solid-svg-icons';
 import NotificationPanel from "./NotificationPanel"; // Import the new component
 import NotificationContext from '../context/NotificationContext.jsx';
 import axiosInstance from '../../api/axiosInstance';
+import './bubble-animation.css';
 
 const initialNotifications = [
   { id: 1, message: "Product B-45 sale ends in 3 hours.", time: "5m ago", isRead: false },
@@ -19,7 +20,17 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen  }) => {
   const [userName, setUserName] = useState("User");
   const [profileImage, setProfileImage] = useState(null);
   // State for the notification panel
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false); 
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  // State for assistance popup
+  const [isAssistanceOpen, setIsAssistanceOpen] = useState(false);
+  const [showBubble, setShowBubble] = useState(false);
+
+  // Handle bubble effect when popup opens
+  React.useEffect(() => {
+    if (isAssistanceOpen) {
+      setShowBubble(true);
+    }
+  }, [isAssistanceOpen]); 
 
   useEffect(() => {
     // Initial fetch
@@ -130,10 +141,6 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen  }) => {
             </button>
           </div>
 
-          <button className="text-gray-500 hover:text-[#217964] p-2 rounded-full hover:bg-gray-100 transition-all duration-200 hover:scale-110">
-            <FontAwesomeIcon icon={faCommentDots} className="text-xl" />
-          </button>
-
           <div className="flex items-center space-x-2">
             <img
               src={profileImage || getAvatarUrl(userName)}
@@ -150,6 +157,45 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen  }) => {
           </div>
         </div>
       </header>
+
+      {/* Assistance Icon - Bottom Right */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <button 
+          onClick={() => setIsAssistanceOpen(!isAssistanceOpen)}
+          className="bg-[#217964] text-white p-4 rounded-full shadow-lg hover:bg-[#217964]/80 hover:scale-110 transition-all duration-300"
+        >
+          <FontAwesomeIcon icon={faHeadset} className="text-xl" />
+        </button>
+        
+        {/* Assistance Popup */}
+        {isAssistanceOpen && (
+          <div className={`absolute bottom-16 right-0 w-96 h-80 bg-white rounded-xl shadow-2xl border border-gray-200 p-6 transform transition-all duration-500 scale-100 opacity-100 ${showBubble ? 'smooth-bubble' : ''}`}>
+            <div className="flex flex-col h-full">
+              <div className="text-center mb-4">
+                <div className="w-12 h-12 bg-[#217964]/10 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <FontAwesomeIcon icon={faHeadset} className="text-xl text-[#217964]" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800">Chat with Agent</h3>
+              </div>
+              <div className="flex-1 bg-gray-50 rounded-lg p-3 mb-4 overflow-y-auto">
+                <div className="bg-white p-3 rounded-lg shadow-sm text-sm">
+                  <span className="text-[#217964] font-medium">Agent:</span> Hello! How can I help you today?
+                </div>
+              </div>
+              <div className="flex space-x-2">
+                <input 
+                  type="text" 
+                  placeholder="Type your message..." 
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#217964]"
+                />
+                <button className="bg-[#217964] text-white px-4 py-2 rounded-lg hover:bg-[#217964]/80 transition-all duration-300">
+                  Send
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 };
