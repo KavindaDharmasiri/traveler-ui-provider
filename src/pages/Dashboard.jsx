@@ -18,6 +18,44 @@ const Dashboard = () => {
   const contentRef = React.useRef(null);
   useScrollAnimation(contentRef, true);
 
+  const [currentMonth, setCurrentMonth] = React.useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = React.useState(new Date().getFullYear());
+  
+  const today = new Date();
+  const monthName = new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long' });
+  const currentDate = today.getDate();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+  
+  const prevMonth = () => {
+    if (currentMonth === 0) {
+      setCurrentMonth(11);
+      setCurrentYear(currentYear - 1);
+    } else {
+      setCurrentMonth(currentMonth - 1);
+    }
+  };
+  
+  const nextMonth = () => {
+    if (currentMonth === 11) {
+      setCurrentMonth(0);
+      setCurrentYear(currentYear + 1);
+    } else {
+      setCurrentMonth(currentMonth + 1);
+    }
+  };
+  
+  // Create array with empty cells for proper day alignment
+  const calendarDays = [];
+  // Add empty cells for days before month starts
+  for (let i = 0; i < firstDayOfMonth; i++) {
+    calendarDays.push(null);
+  }
+  // Add actual days
+  for (let day = 1; day <= daysInMonth; day++) {
+    calendarDays.push(day);
+  }
+
   return (
     <div ref={contentRef} className="p-6 md:p-2 min-h-screen overflow-y-auto scrollbar-hide">
 
@@ -31,11 +69,35 @@ const Dashboard = () => {
 
       {/* Main Content Area */}
       <main className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Sales Chart Placeholder */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg animate-on-scroll transform opacity-0 translate-y-4">
-          <h3 className="text-xl font-semibold text-gray-800 mb-4">Add Calendar Here</h3>
-          <div className="h-64 flex items-center justify-center text-gray-500 bg-gray-50 rounded-lg border border-dashed">
-            [Calendar Visualization Placeholder]
+        {/* Calendar */}
+        <div className="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg animate-on-scroll transform opacity-0 translate-y-4 hover:shadow-2xl transition-all duration-300">
+          <h3 className="text-xl font-semibold text-gray-800 mb-4">Calendar</h3>
+          <div className="h-96 bg-gradient-to-br from-[#217964]/5 via-[#217964]/10 to-[#217964]/15 rounded-xl border border-[#217964]/20 shadow-inner overflow-hidden">
+            <div className="p-4 h-full relative">
+              <div className="flex justify-between items-center mb-6 relative z-10">
+                <h4 className="font-bold text-[#217964] text-lg">{monthName} {currentYear}</h4>
+                <div className="flex space-x-2">
+                  <button onClick={prevMonth} className="px-4 py-2 text-sm bg-gradient-to-r from-[#217964] to-[#217964]/80 text-white rounded-lg hover:scale-110 transition-all duration-300 shadow-lg">‹</button>
+                  <button onClick={nextMonth} className="px-4 py-2 text-sm bg-gradient-to-r from-[#217964] to-[#217964]/80 text-white rounded-lg hover:scale-110 transition-all duration-300 shadow-lg">›</button>
+                </div>
+              </div>
+              <div className="grid grid-cols-7 gap-2 text-center text-sm relative z-10">
+                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+                  <div key={day} className="p-3 font-bold text-[#217964] border-b-2 border-[#217964]/30">{day}</div>
+                ))}
+                {calendarDays.map((day, i) => (
+                  <div key={i} className={`p-3 rounded-lg cursor-pointer transition-all duration-300 font-medium ${
+                    day === null 
+                      ? '' 
+                      : day === currentDate && currentMonth === today.getMonth() && currentYear === today.getFullYear()
+                        ? 'bg-gradient-to-br from-[#217964] to-[#217964]/80 text-white shadow-xl scale-110' 
+                        : 'text-gray-700 hover:text-[#217964] hover:scale-110 hover:bg-[#217964]/20 hover:shadow-lg'
+                  }`}>
+                    {day || ''}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
