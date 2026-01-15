@@ -22,8 +22,8 @@ const MyServices = () => {
   const contentRef = useRef(null);
   // useScrollAnimation(contentRef, true); // Temporarily disabled
   
-  console.log('Services state:', services);
-  console.log('Loading state:', loading);
+  
+  
 
   useEffect(() => {
     checkVerificationStatus();
@@ -65,9 +65,9 @@ const MyServices = () => {
           'Pragma': 'no-cache'
         }
       });
-      console.log('API Response:', response.data);
+      
       const servicesData = Array.isArray(response.data) ? response.data : [];
-      console.log('Services Data:', servicesData);
+      
       setServices(servicesData);
       
       // Collect all image UUIDs

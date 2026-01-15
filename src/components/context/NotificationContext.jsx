@@ -16,12 +16,10 @@ export const NotificationProvider = ({ children }) => {
     const tenantId = localStorage.getItem('tenantId');
     
     if (!tenantId) {
-      console.log("No tenantId found, skipping notification fetch");
       return;
     }
     
     try {
-      console.log("Fetching notifications for tenant:", tenantId);
       const data = await notificationService.getNotifications(tenantId);
       const formatted = data.map(n => ({
         id: n.id,
@@ -32,7 +30,6 @@ export const NotificationProvider = ({ children }) => {
         type: n.notificationType
       }));
       setNotifications(formatted);
-      console.log("Notifications fetched:", formatted.length);
     } catch (error) {
       console.error("Failed to fetch notifications:", error);
     }
@@ -47,7 +44,6 @@ export const NotificationProvider = ({ children }) => {
     try {
       const count = await notificationService.getUnreadCount(tenantId);
       setUnreadCount(count);
-      console.log("Unread count:", count);
     } catch (error) {
       console.error("Failed to fetch unread count:", error);
     }
@@ -58,22 +54,18 @@ export const NotificationProvider = ({ children }) => {
     const tenantId = localStorage.getItem('tenantId');
     
     if (!tenantId) {
-      console.log("Provider UI: No tenantId, notification polling disabled");
       return;
     }
 
-    console.log("Provider UI: Starting notification polling for:", tenantId);
     fetchNotifications();
     fetchUnreadCount();
     
     const interval = setInterval(() => {
-      console.log("Provider UI: Polling notifications (30s interval)");
       fetchNotifications();
       fetchUnreadCount();
     }, 30000);
     
     return () => {
-      console.log("Provider UI: Stopping notification polling");
       clearInterval(interval);
     };
   }, []);
