@@ -20,7 +20,7 @@ export const logout = async () => {
                 try {
                     axiosInstance.post(`auth/logout?refreshToken=${refreshToken}`);
                     localStorage.clear();
-                    window.location.href = '/login';
+                    window.location.href = 'http://44.223.75.93:3001/login';
                 } catch (error) {
                     console.error('Logout error:', error);
                 }
