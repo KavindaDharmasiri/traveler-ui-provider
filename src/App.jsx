@@ -15,6 +15,7 @@ import Settings from "./components/Layout/Settings.jsx";
 
 import { NotificationProvider } from "./components/context/NotificationContext.jsx";
 import { Routes, Route } from "react-router-dom"; 
+import OrderDetailsView from "./pages/OrderDetailsView.jsx";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState("dashboard");
@@ -79,6 +80,7 @@ const App = () => {
               <Route path="/wallet" element={<Wallet />} />
               <Route path="/ongoing" element={<Ongoing />} />
               <Route path="/edit-profile" element={<Profile />} />
+              <Route path="/orders/view-details" element={<OrderDetailsView />} />
             </Routes>
           </main>
         </div>

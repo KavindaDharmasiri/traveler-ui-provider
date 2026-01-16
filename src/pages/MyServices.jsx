@@ -233,12 +233,13 @@ const MyServices = () => {
                       <p className="text-[#217964] text-sm mb-6 leading-relaxed font-medium">
                         Expand your offerings and reach more customers
                       </p>
+                      <Link to='/add'>
                       <button 
-                        onClick={() => setCurrentPage('add')}
                         className="w-full py-3 bg-[#217964] text-white rounded-xl font-medium hover:bg-[#1a5d4e] transition-colors duration-200"
                       >
                         Create Service
                       </button>
+                      </Link>
                       <div className="mt-4 pt-4 border-t border-gray-100">
                         <div className="text-xs text-gray-500 mb-1">Progress</div>
                         <div className="text-lg font-bold text-[#217964] mb-2">{services.length}/6</div>
