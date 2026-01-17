@@ -84,6 +84,8 @@ const Profile = () => {
       // Fetch profile image if UUID exists
       if (userData.profileImageUuid) {
         fetchProfileImage(userData.profileImageUuid);
+      } else {
+        setProfileImage(null);
       }
     } catch (error) {
       console.error('Error fetching user profile:', error);
@@ -319,12 +321,9 @@ const Profile = () => {
       <div className="flex justify-center mb-8">
         <div className="relative w-32 h-32">
           <img
-            src={profileImage || "/default-profile.png"}
+            src={profileImage || "https://placehold.co/128x128/217964/FFFFFF?text=No+Image"}
             alt="Profile"
             className="w-32 h-32 rounded-full object-cover border-4 border-gray-200 shadow-md"
-            onError={(e) => {
-              e.target.src = "/default-profile.png";
-            }}
           />
 
           <label className="absolute bottom-1 right-1 bg-[#217964] text-white p-2 rounded-full cursor-pointer shadow-md hover:bg-[#1a5f4f] transition-colors">
