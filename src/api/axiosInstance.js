@@ -19,6 +19,11 @@ axiosInstance.interceptors.request.use(
       config.headers['X-Tenant-Id'] = tenantId;
     }
     
+    // Add cache-busting headers
+    config.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
+    config.headers['Pragma'] = 'no-cache';
+    config.headers['Expires'] = '0';
+    
     return config;
   },
   (error) => {
