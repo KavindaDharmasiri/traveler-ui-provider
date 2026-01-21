@@ -19,11 +19,6 @@ axiosInstance.interceptors.request.use(
       config.headers['X-Tenant-Id'] = tenantId;
     }
     
-    // Add timestamp to prevent caching
-    if (config.method === 'get') {
-      config.params = { ...config.params, _t: Date.now() };
-    }
-    
     return config;
   },
   (error) => {
