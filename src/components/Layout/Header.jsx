@@ -6,6 +6,7 @@ import NotificationPanel from "./NotificationPanel"; // Import the new component
 import NotificationContext from '../context/NotificationContext.jsx';
 import axiosInstance from '../../api/axiosInstance';
 import './bubble-animation.css';
+import { Link } from "react-router-dom";
 
 const initialNotifications = [
   { id: 1, message: "Product B-45 sale ends in 3 hours.", time: "5m ago", isRead: false },
@@ -104,9 +105,9 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen  }) => {
       />
 
       {/* Main Header Content */}
-      <header className="flex items-center justify-between bg-white p-6 rounded-2xl shadow-md mb-6 relative z-30"> 
+      <header className="flex items-center justify-between bg-white p-4 lg:p-6 rounded-2xl shadow-md mb-6 relative z-30"> 
         {/* Search */}
-        <div className="relative flex-1 max-w-md mx-auto lg:mx-0">
+        <div className="relative w-full md:flex-1 max-w-md mx-auto lg:mx-0 order-2 md:order-1">
           <input
             type="text"
             placeholder="Search products, vouchers, price..."
@@ -119,11 +120,11 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen  }) => {
         </div>
 
         {/* Right section */}
-        <div className="flex items-center space-x-4 ml-auto">
+        <div className="flex items-center justify-between w-full md:w-auto space-x-2 md:space-x-4 md:ml-auto order-1 md:order-2">
           <button
             className="text-gray-500 hover:text-[#217964] p-2 rounded-full hover:bg-gray-100 transition-all duration-200 hover:scale-110 lg:hidden"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          >
+          > 
             {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
@@ -141,10 +142,8 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen  }) => {
             </button>
           </div>
               
-          <button className="text-gray-500 hover:text-[#217964] p-2 rounded-full hover:bg-gray-100 transition-all duration-200 hover:scale-110">
-            <FontAwesomeIcon icon={faCommentDots} className="text-xl" />
-          </button>
-
+          
+        <Link to="/profile">
           <div className="flex items-center space-x-2">
             <img
               src={profileImage || getAvatarUrl(userName)}
@@ -154,11 +153,12 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen  }) => {
                 e.target.src = getAvatarUrl(userName);
               }}
             />
-            <div>
+            <div className="hidden md:block">
               <p className="text-sm font-medium text-gray-800">{userName}</p>
               <p className="text-xs text-gray-500">Provider</p>
             </div>
           </div>
+        </Link>
         </div>
       </header>
 

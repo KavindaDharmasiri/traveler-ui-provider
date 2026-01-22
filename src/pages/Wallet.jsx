@@ -20,14 +20,14 @@ const Wallet = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col md:flex-row transition-colors duration-200 font-sans overflow-hidden">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col md:flex-row transition-colors duration-200 font-sans overflow-x-hidden">
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col h-screen relative">
+      <main className="flex-1 flex flex-col min-h-screen relative max-w-full overflow-x-hidden">
 
         {/* Scrollable Dashboard Content */}
-        <div className="flex-1 px-4 md:px-8 pb-8 pt-4 overflow-y-auto scrollbar-hide">
-          <div className="max-w-7xl mx-auto flex flex-col gap-8">
+        <div className="flex-1 min-w-0 px-3 sm:px-4 md:px-8 pb-8 pt-4 overflow-y-auto overflow-x-hidden scrollbar-hide max-w-[100vw]">
+          <div className="w-full max-w-7xl mx-auto flex flex-col gap-8 overflow-x-hidden max-w-[100vw]">
             
             {/* Financial Stats Row */}
             <section>
@@ -83,7 +83,7 @@ const Wallet = () => {
                     </span>
                   </div>
                   <p className="text-sm font-medium text-slate-500 mb-1">Today's Earnings</p>
-                  <h4 className="text-3xl font-extrabold tracking-tight text-slate-900">$340.00</h4>
+                  <h4 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 break-words">$340.00</h4>
                 </div>
               </div>
             </section>
@@ -135,15 +135,15 @@ const Wallet = () => {
                   <h3 className="text-lg font-bold text-slate-800">Recent Transactions</h3>
                   <button className="text-sm font-bold text-emerald-500 hover:text-emerald-600">View All</button>
                 </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-left border-collapse">
+                <div className="overflow-x-auto max-w-full overscroll-x-contain">
+                  <table className="min-w-[640px] w-full text-left border-collapse">
                     <thead className="bg-slate-50 text-slate-500 text-xs uppercase font-bold">
                       <tr>
-                        <th className="px-6 py-4">Transaction ID</th>
-                        <th className="px-6 py-4">Service</th>
-                        <th className="px-6 py-4">Date</th>
-                        <th className="px-6 py-4">Status</th>
-                        <th className="px-6 py-4 text-right">Amount</th>
+                        <th className="px-3 sm:px-6 py-4">Transaction ID</th>
+                        <th className="px-3 sm:px-6 py-4">Service</th>
+                        <th className="px-3 sm:px-6 py-4">Date</th>
+                        <th className="px-3 sm:px-6 py-4">Status</th>
+                        <th className="px-3 sm:px-6 py-4">Amount</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-sm">
@@ -198,7 +198,7 @@ const StatCard = ({ title, amount, percent, icon, bgIcon }) => (
       </span>
     </div>
     <p className="text-sm font-medium text-slate-500 mb-1">{title}</p>
-    <h4 className="text-3xl font-extrabold tracking-tight text-slate-900">{amount}</h4>
+    <h4 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 break-words">{amount}</h4>
   </div>
 );
 
@@ -207,15 +207,15 @@ const TransactionRow = ({ id, service, date, status, amount, isPositive }) => {
   
   return (
     <tr className="hover:bg-slate-50 transition-colors">
-      <td className="px-6 py-4 font-medium text-slate-900">{id}</td>
-      <td className="px-6 py-4 text-slate-600">{service}</td>
-      <td className="px-6 py-4 text-slate-500">{date}</td>
-      <td className="px-6 py-4">
+      <td className="px-3 sm:px-6 py-4 font-medium text-slate-900">{id}</td>
+      <td className="px-3 sm:px-6 py-4 text-slate-600">{service}</td>
+      <td className="px-3 sm:px-6 py-4 text-slate-500">{date}</td>
+      <td className="px-3 sm:px-6 py-4">
         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusStyles}`}>
           {status}
         </span>
       </td>
-      <td className={`px-6 py-4 text-right font-bold ${isPositive ? 'text-slate-900' : 'text-slate-400'}`}>
+      <td className={`px-3 sm:px-6 py-4 text-right font-bold ${isPositive ? 'text-slate-900' : 'text-slate-400'}`}>
         {amount}
       </td>
     </tr>

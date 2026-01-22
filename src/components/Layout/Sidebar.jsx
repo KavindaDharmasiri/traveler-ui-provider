@@ -35,7 +35,7 @@ const Sidebar = ({ currentPage, setCurrentPage, isMobileOpen, setIsMobileOpen })
   return (
     <aside
       className={`
-        fixed inset-y-0 left-0 z-50 w-64 **bg-gray-100** p-6 flex flex-col shadow-lg rounded-r-2xl 
+        fixed inset-y-0 left-0 z-50 w-full lg:w-64 bg-gray-100 p-6 flex flex-col shadow-lg rounded-none lg:rounded-r-2xl 
         transition-transform duration-300 ease-in-out 
         overflow-y-auto
         ${isMobileOpen ? "translate-x-0" : "-translate-x-full"} 
