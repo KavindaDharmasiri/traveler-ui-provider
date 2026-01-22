@@ -358,13 +358,10 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
 
   // Fetch item data for editing
   useEffect(() => {
-    console.log('EditItemId changed:', editItemId);
     if (editItemId) {
-      console.log('Setting edit mode to true');
       setIsEditMode(true);
       fetchItemForEdit(editItemId);
     } else {
-      console.log('Setting edit mode to false');
       setIsEditMode(false);
       // Reset form when not editing
       resetForm();
@@ -659,13 +656,13 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
         };
       }
 
-      console.log('Is Edit Mode:', isEditMode, 'Edit Item ID:', editItemId);
+      
       if (isEditMode) {
-        console.log('Sending PUT request with ID:', editItemId);
+        
         payload.id = editItemId;
         await axiosInstance.put('core/api/v1/provider/item', payload);
       } else {
-        console.log('Sending POST request to: core/api/v1/provider/item');
+        
         await axiosInstance.post('core/api/v1/provider/item', payload);
       }
       

@@ -19,6 +19,7 @@ import {
   faCheckCircle,
   faExclamationCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const initialUserDetails = {
   name: "",
@@ -589,6 +590,7 @@ const Profile = () => {
       {/* Buttons */}
       <div className="mt-10 flex gap-4">
         {!editing ? (
+          <Link to="/edit-profile">
           <button
             onClick={() => setEditing(true)}
             className="flex items-center justify-center px-6 py-3 text-base font-medium rounded-xl shadow-sm text-white bg-[#217964] hover:bg-green-700 transition"
@@ -596,14 +598,17 @@ const Profile = () => {
             <FontAwesomeIcon icon={faEdit} className="mr-2" />
             Edit Details
           </button>
+          </Link>
         ) : (
           <>
+          <Link to="/profile">
             <button
               onClick={handleSave}
               className="px-6 py-3 bg-[#217964] text-white rounded-xl shadow hover:bg-green-700"
             >
               Save
             </button>
+            </Link>
 
             <button
               onClick={handleCancel}

@@ -57,7 +57,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div ref={contentRef} className="p-6 md:p-2 min-h-screen overflow-hidden">
+    <div ref={contentRef} className="p-6 md:p-2 min-h-screen overflow-y-auto scrollbar-hide">
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">

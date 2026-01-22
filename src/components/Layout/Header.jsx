@@ -1,7 +1,7 @@
 import React, { useState, useEffect,useContext } from "react";
 import { Menu, X } from "lucide-react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBell, faSearch, faHeadset } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faSearch, faHeadset, faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import NotificationPanel from "./NotificationPanel"; // Import the new component
 import NotificationContext from '../context/NotificationContext.jsx';
 import axiosInstance from '../../api/axiosInstance';
@@ -140,6 +140,10 @@ const Header = ({ isSidebarOpen, setIsSidebarOpen  }) => {
               )}
             </button>
           </div>
+              
+          <button className="text-gray-500 hover:text-[#217964] p-2 rounded-full hover:bg-gray-100 transition-all duration-200 hover:scale-110">
+            <FontAwesomeIcon icon={faCommentDots} className="text-xl" />
+          </button>
 
           <div className="flex items-center space-x-2">
             <img

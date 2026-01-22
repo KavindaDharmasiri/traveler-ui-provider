@@ -6,8 +6,9 @@ import { useScrollAnimation } from "../hooks/useScrollAnimation";
 import axiosInstance from "../api/axiosInstance";
 import LoadingScreen from "../components/common/LoadingScreen";
 import Swal from 'sweetalert2';
+import { Link } from "react-router-dom";
 
-const MyServices = ({ setCurrentPage }) => {
+const MyServices = () => {
   const [services, setServices] = useState([]);
   const [editingService, setEditingService] = useState(null);
   const [panelOpen, setPanelOpen] = useState(false);
@@ -21,8 +22,8 @@ const MyServices = ({ setCurrentPage }) => {
   const contentRef = useRef(null);
   // useScrollAnimation(contentRef, true); // Temporarily disabled
   
-  console.log('Services state:', services);
-  console.log('Loading state:', loading);
+  
+  
 
   useEffect(() => {
     checkVerificationStatus();
@@ -64,9 +65,9 @@ const MyServices = ({ setCurrentPage }) => {
           'Pragma': 'no-cache'
         }
       });
-      console.log('API Response:', response.data);
+      
       const servicesData = Array.isArray(response.data) ? response.data : [];
-      console.log('Services Data:', servicesData);
+      
       setServices(servicesData);
       
       // Collect all image UUIDs
@@ -203,13 +204,15 @@ const MyServices = ({ setCurrentPage }) => {
               <p className="text-gray-600 mb-8 leading-relaxed">
                 Start building your service portfolio and reach more customers
               </p>
+              <Link to="/add">
               <button 
-                onClick={() => setCurrentPage('add')}
+                
                 className="inline-flex items-center px-6 py-3 bg-[#217964] text-white font-medium rounded-xl hover:bg-[#1a5d4e] transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
               >
                 <FontAwesomeIcon icon={faPlus} className="mr-2" />
                 Add Your First Service
               </button>
+              </Link>
             </div>
           </div>
         ) : (
@@ -230,12 +233,13 @@ const MyServices = ({ setCurrentPage }) => {
                       <p className="text-[#217964] text-sm mb-6 leading-relaxed font-medium">
                         Expand your offerings and reach more customers
                       </p>
+                      <Link to='/add'>
                       <button 
-                        onClick={() => setCurrentPage('add')}
                         className="w-full py-3 bg-[#217964] text-white rounded-xl font-medium hover:bg-[#1a5d4e] transition-colors duration-200"
                       >
                         Create Service
                       </button>
+                      </Link>
                       <div className="mt-4 pt-4 border-t border-gray-100">
                         <div className="text-xs text-gray-500 mb-1">Progress</div>
                         <div className="text-lg font-bold text-[#217964] mb-2">{services.length}/6</div>
