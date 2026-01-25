@@ -366,12 +366,12 @@ const Profile = () => {
         {/* Email (read-only) */}
         <div className="flex items-center p-3 rounded-lg bg-gray-50 border border-gray-200">
           <FontAwesomeIcon icon={faEnvelope} className="w-6 h-6 mr-4 text-gray-600" />
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-gray-500">Email Address (Read Only)</p>
-            <div className="flex items-center space-x-2">
-              <p className="text-lg font-mono text-gray-900">{userDetails.email || "Loading..."}</p>
+            <div className="flex flex-wrap items-center gap-2">
+              <p className="text-lg font-mono text-gray-900 break-all">{userDetails.email || "Loading..."}</p>
               {userDetails.email && (
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 shrink-0">
                   <FontAwesomeIcon 
                     icon={userDetails.isEmailVerified ? faCheckCircle : faExclamationCircle} 
                     className={`text-sm ${userDetails.isEmailVerified ? 'text-green-500' : 'text-orange-500'}`} 
@@ -408,10 +408,10 @@ const Profile = () => {
                 placeholder="Enter phone number"
               />
             ) : (
-              <div className="flex items-center space-x-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <p className="text-lg text-gray-900">{userDetails.contactNumber || "Not provided"}</p>
                 {userDetails.contactNumber && (
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 shrink-0">
                     <FontAwesomeIcon 
                       icon={userDetails.isNumberVerified ? faCheckCircle : faExclamationCircle} 
                       className={`text-sm ${userDetails.isNumberVerified ? 'text-green-500' : 'text-orange-500'}`} 
