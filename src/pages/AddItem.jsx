@@ -807,6 +807,59 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
                 />
               </div>
             </div>
+            
+            <div>
+              <label className="block mb-3 font-semibold text-gray-900">Advance Payment</label>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                <div className="relative w-full sm:w-32">
+                  <input
+                    type="text"
+                    className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-[#217964] cursor-pointer hover:border-[#217964]/50 transition-all duration-200"
+                    value={`${currencies.find(c => c.code === selectedCurrency)?.symbol} ${selectedCurrency}`}
+                    onClick={() => setShowCurrencyDropdown(!showCurrencyDropdown)}
+                    readOnly
+                    placeholder="Currency"
+                  />
+                  {showCurrencyDropdown && (
+                    <div className="absolute top-full left-0 w-full sm:w-80 bg-white border-2 border-gray-200 rounded-xl shadow-xl z-10 max-h-60 overflow-hidden">
+                      <input
+                        type="text"
+                        className="w-full p-3 border-b-2 border-gray-200 focus:outline-none focus:border-[#217964]"
+                        placeholder="Search currency..."
+                        value={currencySearch}
+                        onChange={(e) => setCurrencySearch(e.target.value)}
+                      />
+                      <div className="max-h-48 overflow-y-auto">
+                        {filteredCurrencies.map((currency) => (
+                          <div
+                            key={currency.code}
+                            className="p-3 hover:bg-[#217964]/10 cursor-pointer text-sm transition-colors duration-150"
+                            onClick={() => {
+                              setSelectedCurrency(currency.code);
+                              setShowCurrencyDropdown(false);
+                              setCurrencySearch('');
+                            }}
+                          >
+                            {currency.symbol} {currency.code} - {currency.name}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <input 
+                  className="flex-1 p-4 border-2 border-gray-200 rounded-xl focus:border-[#217964] focus:ring-2 focus:ring-[#217964]/20 transition-all duration-200" 
+                  type="number" 
+                  name="AdvancePayment"
+                  value={formData.Advance}
+                  onChange={handleInputChange}
+                  placeholder={`Price in ${selectedCurrency}`}
+                  required
+                />
+              </div>
+            </div>
+            
+
 
             <div>
               <label className="block mb-3 font-semibold text-gray-900">Contact Number</label>
