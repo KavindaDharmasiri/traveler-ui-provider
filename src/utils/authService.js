@@ -20,7 +20,7 @@ export const logout = async () => {
                 try {
                     axiosInstance.post(`auth/logout?refreshToken=${refreshToken}`);
                     localStorage.clear();
-                    window.location.href = 'http://44.223.75.93:3001/login';
+                    window.location.href = 'https://travler.lk';
                 } catch (error) {
                     console.error('Logout error:', error);
                 }
