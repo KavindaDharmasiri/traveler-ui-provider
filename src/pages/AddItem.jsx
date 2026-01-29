@@ -859,7 +859,7 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
                 <input 
                   className="flex-1 p-4 border-2 border-gray-200 rounded-xl focus:border-[#217964] focus:ring-2 focus:ring-[#217964]/20 transition-all duration-200" 
                   type="number" 
-                  name="AdvancePayment"
+                  name="advance"
                   value={formData.advance}
                   onChange={handleInputChange}
                   placeholder={`Price in ${selectedCurrency}`}
