@@ -349,7 +349,10 @@ const MyServices = ({ setCurrentPage }) => {
 
                           <div className="flex gap-2">
                             <button
-                              onClick={() => setCurrentPage('add', s.id)}
+                              onClick={() => {
+                                // Navigate to AddItem page with edit mode
+                                window.location.href = `/add?edit=${s.id}`;
+                              }}
                               className="flex items-center gap-2 px-3 py-2 bg-gray-50 text-gray-700 rounded-xl hover:bg-[#217964] hover:text-white transition-all duration-200"
                             >
                               <FontAwesomeIcon icon={faEdit} className="text-sm" />

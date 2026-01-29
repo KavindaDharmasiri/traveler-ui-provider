@@ -359,9 +359,13 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
 
   // Fetch item data for editing
   useEffect(() => {
-    if (editItemId) {
+    // Check for edit parameter in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const editId = urlParams.get('edit') || editItemId;
+    
+    if (editId) {
       setIsEditMode(true);
-      fetchItemForEdit(editItemId);
+      fetchItemForEdit(editId);
     } else {
       setIsEditMode(false);
       // Reset form when not editing
