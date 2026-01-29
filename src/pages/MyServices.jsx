@@ -8,7 +8,7 @@ import LoadingScreen from "../components/common/LoadingScreen";
 import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
 
-const MyServices = () => {
+const MyServices = ({ setCurrentPage }) => {
   const [services, setServices] = useState([]);
   const [editingService, setEditingService] = useState(null);
   const [panelOpen, setPanelOpen] = useState(false);
