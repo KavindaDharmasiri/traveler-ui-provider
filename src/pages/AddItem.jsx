@@ -370,7 +370,7 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
   }, [editItemId]);
 
   const resetForm = () => {
-    setFormData({ name: "", contact: "", description: "", pricePerDay: "" , qty: ""});
+    setFormData({ name: "", contact: "", description: "", pricePerDay: "", advance: "" , qty: ""});
     setCategory("");
     setImages([]);
     setImageUrls([]);
@@ -419,7 +419,8 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
         name: item.name,
         contact: phoneNumber,
         description: item.description,
-        pricePerDay: item.pricePerDay.toString()
+        pricePerDay: item.pricePerDay.toString(),
+        advance: item.advance.toString()
       });
       setSelectedCurrency(item.currency);
       
