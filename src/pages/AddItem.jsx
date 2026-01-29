@@ -578,6 +578,12 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
     
     // Validate main form fields
     if (!category || !formData.name || !formData.contact || !formData.description || !formData.pricePerDay || !formData.advance) {
+      console.log(category)
+      console.log(formData.name)
+      console.log(formData.contact)
+      console.log(formData.description)
+      console.log(formData.pricePerDay)
+      console.log(formData.advance)
       Swal.fire({
         title: 'Missing Required Fields!',
         text: 'Please fill in all required fields.',
