@@ -21,7 +21,8 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
     name: "",
     contact: "",
     description: "",
-    pricePerDay: ""
+    pricePerDay: "",
+    advance:""
   });
   const [selectedCurrency, setSelectedCurrency] = useState("USD");
   const [currencySearch, setCurrencySearch] = useState("");
@@ -576,7 +577,7 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
     e.preventDefault();
     
     // Validate main form fields
-    if (!category || !formData.name || !formData.contact || !formData.description || !formData.pricePerDay) {
+    if (!category || !formData.name || !formData.contact || !formData.description || !formData.pricePerDay || !formData.advance) {
       Swal.fire({
         title: 'Missing Required Fields!',
         text: 'Please fill in all required fields.',
@@ -631,6 +632,7 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
         contact: selectedCountryCode + formData.contact,
         description: formData.description,
         pricePerDay: parseFloat(formData.pricePerDay),
+        advance: parseFloat(formData.advance),
         currency: selectedCurrency,
         images: images,
         qty: formData.qty
@@ -851,7 +853,7 @@ const AddItem = ({ setCurrentPage, editItemId }) => {
                   className="flex-1 p-4 border-2 border-gray-200 rounded-xl focus:border-[#217964] focus:ring-2 focus:ring-[#217964]/20 transition-all duration-200" 
                   type="number" 
                   name="AdvancePayment"
-                  value={formData.Advance}
+                  value={formData.advance}
                   onChange={handleInputChange}
                   placeholder={`Price in ${selectedCurrency}`}
                   required
