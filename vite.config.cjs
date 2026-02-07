@@ -7,27 +7,27 @@ export default defineConfig({
     port: 4300,
     proxy: {
       "/auth": {
-        target: "http://44.223.75.93:5555",
+        target: "http://52.90.56.20:5555",
         changeOrigin: true,
         secure: false
       },
       "/core": {
-        target: "http://44.223.75.93:5555",
+        target: "http://52.90.56.20:5555",
         changeOrigin: true,
         secure: false
       },
       "/notification": {
-        target: "http://44.223.75.93:5555",
+        target: "http://52.90.56.20:5555",
         changeOrigin: true,
         secure: false
       },
       "/storage": {
-        target: "http://44.223.75.93:5555",
+        target: "http://52.90.56.20:5555",
         changeOrigin: true,
         secure: false
       },
       "/api": {
-        target: "http://44.223.75.93:5555",
+        target: "http://52.90.56.20:5555",
         changeOrigin: true,
         secure: false
       }
@@ -39,12 +39,12 @@ export default defineConfig({
   preview: {
     proxy: {
       "/storage": {
-        target: "http://44.223.75.93:5555",
+        target: "http://52.90.56.20:5555",
         changeOrigin: true,
         secure: false
       },
       "/api": {
-        target: "http://44.223.75.93:5555",
+        target: "http://52.90.56.20:5555",
         changeOrigin: true,
         secure: false
       }

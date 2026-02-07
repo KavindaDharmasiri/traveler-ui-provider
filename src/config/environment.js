@@ -3,6 +3,6 @@ export const API_CONFIG = {
 };
 
 export const NAVIGATION_CONFIG = {
-  TRAVELLER_APP_URL: 'http://http://44.223.75.93:3000',
-  LOGIN_URL: 'http://http://44.223.75.93:4400'
+  TRAVELLER_APP_URL: 'http://http://52.90.56.20:3000',
+  LOGIN_URL: 'http://http://52.90.56.20:4400'
 };
